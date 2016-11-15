@@ -1,10 +1,14 @@
 package com.appspot.roovemore.match;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public abstract class AbstractHtmlInputStreamReader {
 
@@ -23,29 +27,42 @@ public abstract class AbstractHtmlInputStreamReader {
 	protected static final Pattern CHARSET_PATTERN = Pattern
 		.compile(CHARSET_REGEX);
 
-	@Deprecated
-	public static class Logger{
-		public static void info(Object o){
-			System.out.println(o);
-		}
-	}
-	@Deprecated
-	public static Logger logger;
+	private final Log logger = LogFactory.getLog(getClass());
 
 	@Deprecated
 	public String matchString;
 
 	protected String charsetName;
 
-	/**
-	 * あらかじめCharsetがわかっている場合は指定すること
-	 * @param charsetName
-	 */
-	public void setCharsetName(String charsetName) {
-		this.charsetName = charsetName;
+//	/**
+//	 * あらかじめCharsetがわかっている場合は指定すること
+//	 * @param charsetName
+//	 */
+//	public void setCharsetName(String charsetName) {
+//		this.charsetName = charsetName;
+//	}
+
+
+
+	public void read (
+			String responseCharset,
+			String responseContentType,
+			InputStream inputStream )
+			throws IOException, UnsupportedEncodingException
+			{
+
+		charsetName = CharsetMatch.getCharsetFromHtml(responseCharset, responseContentType);
+		read(inputStream);
+
+		return;
 	}
 
-	public void read(InputStream inputStream) throws Exception {
+
+
+
+	public void read(InputStream inputStream)
+		throws IOException, UnsupportedEncodingException
+	{
 
 		CharByte charByte = new CharByte();
 		boolean isLineSeparator = false;
