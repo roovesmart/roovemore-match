@@ -52,12 +52,12 @@ public abstract class RequestController {
 			con.setConnectTimeout(connectTimeout);
 
 			int status = con.getResponseCode();
-			if(status != 200) {
-				return;
-			}
+//			if(status != 200) {
+//				return;
+//			}
 
 			inputStream = con.getInputStream();
-			afterProcess( responseCharset, con.getContentType(), inputStream);
+			afterProcess( status, responseCharset, con.getContentType(), inputStream);
 
 		} catch (IOException e){
 			throw new IOException(
@@ -80,6 +80,7 @@ public abstract class RequestController {
 	}
 
     protected abstract void afterProcess(
+    		int statusCd,
 			String responseCharset,
 			String responseContentType,
 			InputStream inputStream

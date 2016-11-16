@@ -21,10 +21,18 @@ public class AtagRequestController extends RequestController {
 
 	@Override
     protected void afterProcess(
+    		int status,
 			String responseCharset,
 			String responseContentType,
 			InputStream inputStream
     		){
+
+
+		if(status != 200) {
+			// TODO: handle exception
+			return;
+		}
+
 
     	ATagMatch a = new ATagMatch();
 

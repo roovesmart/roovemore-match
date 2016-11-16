@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CharsetMatch {
+public class CharsetUtil {
 
 	protected static final String CHARSET_REGEX2 = ".*?charset=(.+?) .*";
 	protected static final Pattern CHARSET_PATTERN2 = Pattern

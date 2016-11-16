@@ -29,20 +29,7 @@ public abstract class AbstractHtmlInputStreamReader {
 
 	private final Log logger = LogFactory.getLog(getClass());
 
-	@Deprecated
-	public String matchString;
-
 	protected String charsetName;
-
-//	/**
-//	 * あらかじめCharsetがわかっている場合は指定すること
-//	 * @param charsetName
-//	 */
-//	public void setCharsetName(String charsetName) {
-//		this.charsetName = charsetName;
-//	}
-
-
 
 	public void read (
 			String responseCharset,
@@ -51,7 +38,7 @@ public abstract class AbstractHtmlInputStreamReader {
 			throws IOException, UnsupportedEncodingException
 			{
 
-		charsetName = CharsetMatch.getCharsetFromHtml(responseCharset, responseContentType);
+		charsetName = CharsetUtil.getCharsetFromHtml(responseCharset, responseContentType);
 		read(inputStream);
 
 		return;
